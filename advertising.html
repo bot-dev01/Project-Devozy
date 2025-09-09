@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Targeted Advertising - DEVOZY</title>
+<style>
+  /* ===================== GLOBAL STYLES ===================== */
+  * {margin:0; padding:0; box-sizing:border-box;}
+  body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:1.6; color:#fff; scroll-behavior: smooth; background: #0a0a0a;}
+  html {scroll-padding-top: 100px;}
+  a {text-decoration:none;}
+
+  /* ===================== NAVIGATION ===================== */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(10,10,10,0.1);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(212,175,55,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(30px);
+    border-bottom: 1px solid rgba(212,175,55,0.3);
+  }
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .logo {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, #d4af37, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin-left: auto;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 0.5rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(45deg, #d4af37, #ffd700);
+    transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .nav-links a:hover::after {width: 100%;}
+  .nav-links a:hover {color:#ffd700; transform: scale(1.05);}
+
+  /* ===================== HERO ===================== */
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+    background-size: 400% 400%;
+    animation: gradientShift 20s ease infinite;
+    padding: 100px 20px 60px;
+  }
+  @keyframes gradientShift {
+    0% { background-position:0% 50%; }
+    25% { background-position:100% 50%; }
+    50% { background-position:100% 100%; }
+    75% { background-position:0% 100%; }
+    100% { background-position:0% 50%; }
+  }
+  .hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg,#ffffff,#d4af37,#ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:0 0 20px rgba(212,175,55,0.5);
+  }
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: rgba(255,255,255,0.9);
+  }
+  .cta-button {
+    display:inline-block;
+    padding:15px 35px;
+    background:linear-gradient(45deg,#f59e0b,#ec4899);
+    color:white;
+    border-radius:50px;
+    font-weight:600;
+    transition:all 0.3s ease;
+    box-shadow:0 8px 20px rgba(255,215,0,0.3);
+  }
+  .cta-button:hover {
+    transform:translateY(-5px);
+    box-shadow:0 15px 40px rgba(255,215,0,0.5);
+    background:linear-gradient(45deg,#ffd700,#ffed4e);
+  }
+
+  /* ===================== FEATURES ===================== */
+  #features {padding:80px 0; background:#111;}
+  #features h2 {text-align:center; font-size:2.5rem; margin-bottom:3rem; color:#ffd700; text-shadow:0 0 10px rgba(255,215,0,0.5);}
+  .features-grid {display:grid; grid-template-columns: 1fr; gap:2rem;}
+  .feature-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter:blur(12px);
+    border-radius:20px;
+    padding:2rem;
+    border:1px solid rgba(255,215,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .feature-card:hover {transform:translateY(-10px); box-shadow:0 10px 30px rgba(255,215,0,0.5);}
+  .feature-card h3 {color:#ffd700; margin-bottom:1rem; font-size:1.5rem;}
+  .feature-card p {color: rgba(255,255,255,0.9); font-size:1.1rem; line-height:1.6;}
+
+  @media (min-width:768px) {.features-grid {grid-template-columns:1fr 1fr;}}
+
+  /* ===================== FAQ ===================== */
+  #faq {background:#111; padding:80px 0; color:#fff;}
+  #faq h2 {text-align:center; font-size:2.5rem; margin-bottom:3rem; color:#ffd700; text-shadow:0 0 10px rgba(255,215,0,0.5);}
+  .faq-item {background: rgba(255,255,255,0.05); backdrop-filter:blur(12px); border-radius:15px; padding:1.5rem; margin-bottom:1.5rem; border-left:4px solid #ffd700; transition:all 0.3s ease;}
+  .faq-item:hover {transform:translateY(-5px); box-shadow:0 10px 20px rgba(255,215,0,0.3);}
+  .faq-item h3 {margin-bottom:0.5rem; font-size:1.2rem;}
+  .faq-item p {font-size:1rem; color: rgba(255,255,255,0.85);}
+
+  /* ===================== FOOTER ===================== */
+  footer {background:#000; text-align:center; padding:2rem 0; color:white;}
+</style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">DEVOZY</a>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#features">Key Features</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h1>Precision Targeted Advertising</h1>
+      <p>Reach the right audience at the right time with highly targeted advertising campaigns that maximize ROI and conversions.</p>
+      <a href="#features" class="cta-button">Explore Features</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features">
+    <div class="container">
+      <h2>Key Features of Our Targeted Advertising</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Audience Segmentation</h3>
+          <p>We segment your audience based on demographics, behavior, interests, and location to ensure that every ad reaches the most relevant prospects.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Multi-Platform Ads</h3>
+          <p>Run campaigns across Google, Facebook, Instagram, LinkedIn, and YouTube for maximum coverage. Custom strategies for each platform enhance effectiveness.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Ad Creative & Copywriting</h3>
+          <p>High-converting ad creatives, visuals, and copy tailored for each target group. We A/B test variations to find the best-performing ads.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Conversion Tracking & Analytics</h3>
+          <p>We monitor clicks, leads, and sales with precise analytics. Our reporting helps optimize campaigns in real-time to improve ROI continuously.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Budget Optimization</h3>
+          <p>Maximize results by allocating budgets intelligently across campaigns. Continuous monitoring ensures the highest performance per dollar spent.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Remarketing & Retargeting</h3>
+          <p>We re-engage users who showed interest but didn’t convert using remarketing campaigns, driving them back to your website or landing page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>How quickly can I see results?</h3>
+        <p>Paid targeted campaigns can generate initial leads and traffic in a few days, but significant ROI is generally observed in 2–4 weeks.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Which platforms do you target?</h3>
+        <p>We cover Google Ads, Facebook Ads, Instagram Ads, LinkedIn Ads, and YouTube Ads. Each campaign is tailored for the platform’s unique audience.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can you handle my ad creatives?</h3>
+        <p>Yes, we design ad creatives, write copy, and perform A/B testing for all campaigns to ensure maximum engagement and conversions.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is this suitable for small businesses?</h3>
+        <p>Absolutely. Our campaigns are scalable and designed to deliver measurable ROI for businesses of all sizes and budgets.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Do you manage campaign budgets?</h3>
+        <p>Yes, we continuously optimize ad spend across platforms to get the best results and highest ROI for your advertising budget.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 DEVOZY. Driving precise results, one click at a time.
+  </footer>
+
+</body>
+</html>
